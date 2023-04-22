@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import pandas as pd
 
 
+
 app = Dash(__name__)
 df_ratp = pd.read_csv("trafic-annuel-entrant-par-station-du-reseau-ferre-2021.csv", sep=";")
 df_idf = pd.read_csv("emplacement-des-gares-idf_changer.csv", sep=";")
@@ -120,52 +121,65 @@ fig.update_layout(margin ={'l':0,'t':0,'b':0,'r':0},
 
 
 app.layout = html.Div(children=[
-    html.H1("TP Data tools"),
-    html.H2("Gauthier de Ponthaud"),
-    html.P("Choissiez un réseau pour filtrer les résultats exposer dans le graphique en barre."),
+    html.Div(className="header",children=[
+        html.H1("TP Data Tools"),
+        html.H2("Gauthier de Ponthaud"),
+    ]),
+
+    html.Div(className="separeteur"),
+    html.P("Choissiez un réseau pour filtrer les résultats exposer dans le graphique en barre"),
     dcc.Dropdown(
             id='category-filter_reseau',
             options=[{'label': category, 'value': category} for category in df_ratp_trafic.groupby(['Réseau']).groups.keys()],
             value=None,
             placeholder='Choisissez un resau'
         ),
-    html.Div(style={'display':'Flex'},children=[
+    html.Div(className="ratp_Charts",style={'display':'Flex'},children=[
     dcc.Graph(
+        className='bar_chart_trafic',
         id='bar_chart_trafic',
-        figure=px.bar(df_ratp_trafic, x=df_ratp_trafic["Station"], y=df_ratp_trafic["Trafic"],title="diagramme en barre qui représente le traffic par Station")
+        figure=px.bar(df_ratp_trafic, x=df_ratp_trafic["Station"], y=df_ratp_trafic["Trafic"],title="Traffic par Station")
     ),
     dcc.Graph(
+        className='pie_chart_ville',
         id='pie_chart_ville',
-        figure=px.pie(df_ratp_ville,df_ratp_ville.index, df_ratp_ville["Trafic"],title="diagramme circulaire representant le traffic par station (5 plus grosses stations uniquement)").update_layout(showlegend=False,)
+        figure=px.pie(df_ratp_ville,df_ratp_ville.index, df_ratp_ville["Trafic"],title="Traffic par station (5 plus grosses stations uniquement)").update_layout(showlegend=False,)
 
     )
 
 
     ]),
-    html.P("Choissiez un exploitant pour filtrer les résultats exposer dans le graphique de nombre de station par ligne."),
+    html.Div(className="separeteur"),
+    html.P("Choissiez un exploitant pour filtrer les résultats exposer dans le graphique de nombre de station par ligneà"),
     dcc.Dropdown(
             id='category-filter_exploitant',
             options=[{'label': category, 'value': category} for category in df_idf.groupby(['exploitant']).groups.keys()],
             value=None,
             placeholder='Choisissez un exploitant'
         ),
-    html.H3("Graphique qui représente le nombre de stations par exploitant."),
+    html.Div(className="idf_Charts",children=[
+    html.H3("Nombre de stations par exploitant"),
     dcc.Graph(
+        className='bar_chart_exploitant',
         id='bar_chart_exploitant',
         figure=px.bar(df_idf_exploit, x=df_idf_exploit.groups.keys(), y=df_idf_exploit.size())
     ),
-    html.H3("Graphique qui représente le nombre de stations par ligne."),
+    html.H3("Nombre de stations par ligne"),
     dcc.Graph(
+            className='graph_ligne',
             id='graph_ligne',
             figure=px.bar(df_idf_ligne, x=df_idf_ligne.groups.keys(), y=df_idf_ligne.size())
         ),
-
+    ]),
+    html.Div(className="separeteur"),
     html.H3("Carte des transports d'île de France"),
+    html.Div(className="map",children=[
     html.P("vous pouvez cliquer sur les noms des lignes dans la légende pour effacer ou faire apparaitre les points."),
     dcc.Graph(
         id="map",
         figure=fig
     ),
+    ]),
 
 
 

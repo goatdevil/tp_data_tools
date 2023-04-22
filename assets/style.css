@@ -1,0 +1,65 @@
+h3{
+    box-sizing: content-box;
+    font-family: Arial;
+    width: max-content;
+    padding: 10px;
+    background-clip: border-box;
+    background-color: black ;
+    color: white;
+
+}
+.header{
+    font-family: Arial;
+    color: white;
+    min-width: 100px;
+	max-width: 100%;
+	min-height: 150px;
+	max-height: 150px;
+	background-color: #2E6EBD;
+
+	border-bottom: 1px solid;
+	border-color: #2E6EBD;
+	box-shadow: 2px 2px 2px;
+}
+.bar_chart_exploitant{
+    border-bottom: 1px;
+    border-bottom-style: dashed;
+    border-bottom-color: #2E6EBD;
+}
+.idf_Charts{
+    display: flow;
+
+}
+.map{
+
+    font-style: italic;
+    font-weight: bold;
+    font-family: Arial;
+}
+ P{
+    text-decoration: underline;
+     font-family: Arial;
+}
+
+.bar_chart_trafic{
+     width: 250%;
+     border-right: 3px solid ;
+     border-color: #2E6EBD;
+
+ }
+.pie_chart_ville{
+    width: 150%;
+    border-color: #2E6EBD;
+
+}
+ .ratp_charts{
+     width: 200%;
+     border-right: 5px solid ;
+     border-color: #2E6EBD;
+     box-shadow: 2px 2px 2px;
+ }
+.separeteur{
+	border-bottom: 1px solid;
+	border-color: #2E6EBD;
+	box-shadow: 2px 2px 2px;
+}
